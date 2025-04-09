@@ -1,0 +1,18 @@
+<nav>
+  <a routerLink="/addContato"> Formulário </a>
+</nav>
+<br>
+<nav>
+  <a routerLink="/detalhesContato"> Detalhes do contato </a>
+</nav>
+
+
+<div class="form-container">
+  <div class="lista-contatos">
+    <h3>Lista de contatos:</h3>
+    <p *ngIf="listaContatos.length === 0">Nenhum contato cadastrado</p>
+    <ul *ngIf="listaContatos.length > 0">
+      <li *ngFor="let contato of listaContatos">{{ contato.nome }}</li>
+    </ul>
+  </div>
+</div>
