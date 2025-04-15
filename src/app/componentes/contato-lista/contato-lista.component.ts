@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {Contato} from '../../models/contato';
 import {ContatoService} from '../../services/contato.service';
-import {NgForOf, NgIf} from '@angular/common';
+import {JsonPipe, NgForOf, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-contato-lista',
@@ -10,7 +10,8 @@ import {NgForOf, NgIf} from '@angular/common';
   imports: [
     RouterLink,
     NgIf,
-    NgForOf
+    NgForOf,
+    JsonPipe
   ],
   templateUrl: './contato-lista.component.html',
   styleUrl: './contato-lista.component.css'
@@ -18,8 +19,7 @@ import {NgForOf, NgIf} from '@angular/common';
 export class ContatoListaComponent {
   listaContatos: Contato[] =[];
 
-
   constructor(private service: ContatoService) {
-    this.listaContatos = this.service.listaContatos;
+    this.service.listarContatos().subscribe(contatos => this.listaContatos = contatos);
   }
 }

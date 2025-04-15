@@ -19,6 +19,6 @@ export class ContatoDetalhesComponent {
   listaContatos: Contato[] =[];
 
   constructor(private service: ContatoService) {
-    this.listaContatos = this.service.listaContatos;
+    this.service.listarContatos().subscribe(contatos => this.listaContatos = contatos);
   }
 }

@@ -1,15 +1,13 @@
-<nav>
+<nav class="navbar">
   <a routerLink="/detalhesContato"> Detalhes do contato </a>
+  <a routerLink="/lista"> Lista de contatos </a>
 </nav>
+
 
 <div class="container">
   <h2>Adicionar Contato</h2>
 
-    <div class="form-group">
-      <label for="id">ID</label>
-      <input type="number" id="id" class="form-control" [(ngModel)]="id" name="id">
-    </div>
-
+  <form (ngSubmit)="adicionar()">
     <div class="form-group">
       <label for="nome">Nome</label>
       <input type="text" id="nome" class="form-control" [(ngModel)]="nome" name="nome">
@@ -25,8 +23,9 @@
       <input type="text" id="telefone" class="form-control" [(ngModel)]="telefone" name="telefone">
     </div>
 
+    <button type="submit">Adicionar Contato</button>
+  </form>
 
-    <button (click)="adicionar()">Adicionar Contato</button>
   <br>
   <br>
 
@@ -36,6 +35,6 @@
   </div>
 
   <button (click)="remover()"> Remover Contato</button>
-
 </div>
+
 
