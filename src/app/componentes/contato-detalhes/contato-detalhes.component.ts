@@ -5,15 +5,14 @@ import {Router, RouterLink} from '@angular/router';
 import {Contato} from '../../models/contato';
 
 @Component({
-  selector: 'app-contato-detalhes',
-  standalone: true,
-  imports: [
-    NgForOf,
-    NgIf,
-    RouterLink
-  ],
-  templateUrl: './contato-detalhes.component.html',
-  styleUrl: './contato-detalhes.component.css'
+    selector: 'app-contato-detalhes',
+    imports: [
+        NgForOf,
+        NgIf,
+        RouterLink
+    ],
+    templateUrl: './contato-detalhes.component.html',
+    styleUrl: './contato-detalhes.component.css'
 })
 export class ContatoDetalhesComponent {
   listaContatos: Contato[] =[];

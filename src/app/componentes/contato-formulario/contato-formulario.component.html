@@ -1,40 +1,44 @@
-<nav class="navbar">
-  <a routerLink="/detalhesContato"> Detalhes do contato </a>
-  <a routerLink="/lista"> Lista de contatos </a>
-</nav>
+<p-menubar [model]="items" />
+
+<br>
+<br>
+<br>
+<br>
 
 
-<div class="container">
-  <h2>Adicionar Contato</h2>
-
-  <form (ngSubmit)="adicionar()">
-    <div class="form-group">
-      <label for="nome">Nome</label>
-      <input type="text" id="nome" class="form-control" [(ngModel)]="nome" name="nome">
-    </div>
-
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" id="email" class="form-control" [(ngModel)]="email" name="email">
-    </div>
-
-    <div class="form-group">
-      <label for="telefone">Telefone</label>
-      <input type="text" id="telefone" class="form-control" [(ngModel)]="telefone" name="telefone">
-    </div>
-
-    <button type="submit">Adicionar Contato</button>
-  </form>
-
+<p-panel header="Adicionar Contato">
+  <br>
+  <p-floatlabel>
+    <input id="nome" pInputText [(ngModel)]="nome" />
+    <label for="nome">Nome</label>
+  </p-floatlabel>
   <br>
   <br>
+  <p-floatlabel>
+    <input id="Email" pInputText [(ngModel)]="email" />
+    <label for="Email">Email</label>
+  </p-floatlabel>
+  <br>
+  <br>
+  <p-floatlabel>
+    <input id="tel" pInputText [(ngModel)]="telefone" />
+    <label for="tel">Telefone</label>
+  </p-floatlabel>
+  <br>
 
-  <div class="form-group">
-    <label for="idRemover">Remover ID</label>
-    <input type="number" id="idRemover" class="form-control" [(ngModel)]="idRemover" name="idRemover">
-  </div>
+  <p-button (click)="adicionar()" label="Salvar" icon="pi pi-check" iconPos="right" />
+</p-panel>
+<br>
 
-  <button (click)="remover()"> Remover Contato</button>
-</div>
+<p-panel header="Remover Contato">
+  <label for="idRemover">ID do Contato</label>
+  <br>
+  <input type="number" id="idRemover" class="form-control" [(ngModel)]="idRemover" name="idRemover">
+  <br>
+  <br>
+  <p-button (click)="remover()" label="Remover" icon="pi pi-check" iconPos="right" />
+</p-panel>
+
+
 
 

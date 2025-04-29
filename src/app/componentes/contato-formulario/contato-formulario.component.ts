@@ -4,30 +4,57 @@ import {FormsModule} from '@angular/forms';
 import {RouterLink} from '@angular/router';
 import {ContatoService} from '../../services/contato.service';
 import {Router} from '@angular/router';
+import {Grupo} from '../../models/grupo';
+import {GrupoService} from '../../services/grupo.service';
+import {Panel} from 'primeng/panel';
+import {FloatLabel} from 'primeng/floatlabel';
+import {InputMask} from 'primeng/inputmask';
+import {Button} from 'primeng/button';
+import {MenuItem} from 'primeng/api';
+import {Menubar} from 'primeng/menubar';
 
 
 @Component({
-  selector: 'app-contato-formulario',
-  standalone: true,
+    selector: 'app-contato-formulario',
   imports: [
-    RouterLink, FormsModule, CommonModule
+    RouterLink, FormsModule, CommonModule, Panel, FloatLabel, InputMask, Button, Menubar
   ],
-  templateUrl: './contato-formulario.component.html',
-  styleUrl: './contato-formulario.component.css'
+    templateUrl: './contato-formulario.component.html',
+    styleUrl: './contato-formulario.component.css'
 })
 export class ContatoFormularioComponent {
+
   id: number = 0 ;
   idRemover : number = 0;
   nome: string = '';
   email: string = '';
   telefone: string = '';
+  grupos: [] = [];
+
+  listaGrupos: Grupo[] = [];
 
 
-  constructor(private service : ContatoService, private router : Router) {
+  constructor(private contatoService : ContatoService, private router : Router, private grupoService : GrupoService) {
+    this.grupoService.listarGrupos().subscribe(grupos => this.listaGrupos = grupos);
   }
+  items: MenuItem[] = [
+    {
+      label: 'Lista grupos',
+      routerLink: '/grupo-lista'
+    },
+    {
+      label: 'Novo Contato',
+      routerLink: '/addContato'
+    },
+    {
+      label: 'Sobre',
+      routerLink: '/detalhesContato'
+    }
+  ];
+
   remover(){
 
-      this.service.deletarContatoById(this.idRemover).subscribe({
+      this.contatoService.deletarContatoById(this.idRemover).subscribe({
         next: () => {
           console.log('Contato removido com sucesso!');
           this.router.navigateByUrl('/lista');
@@ -38,12 +65,6 @@ export class ContatoFormularioComponent {
       });
 
 
-
-
-    /*
-    this.service.deletarContatoById(this.idRemover);
-    this.router.navigateByUrl('/lista');
-     */
   }
   adicionar(){
       if(!this.nome.trim()){
@@ -60,7 +81,7 @@ export class ContatoFormularioComponent {
         telefone: this.telefone
       });
 
-      this.service.incluirContato({
+      this.contatoService.incluirContato({
         id: this.id,
         nome: this.nome,
         email: this.email,
@@ -74,9 +95,6 @@ export class ContatoFormularioComponent {
           console.error('Erro ao salvar contato:', erro);
         }
       });
-    /*
-    this.service.incluirContato({id: this.id, nome: this.nome, email: this.email, telefone: this.telefone});
-    this.router.navigateByUrl('/lista');
-    */
+
   }
 }
