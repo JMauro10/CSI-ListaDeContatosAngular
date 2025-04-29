@@ -54,4 +54,7 @@ export class ContatoService {
     return this.http.delete<void>(this.url + '/contato/' + id);
   }
 
+  atualizarContato(contato: Contato): Observable<Contato>{
+    return this.http.put<Contato>(this.url + '/contato', contato);
+  }
 }
