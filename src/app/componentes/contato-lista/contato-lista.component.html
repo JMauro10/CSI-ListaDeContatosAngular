@@ -1,16 +1,38 @@
-<nav class="navbar">
-  <a routerLink="/detalhesContato"> Detalhes do contato </a>
-  <a routerLink="/addContato"> Formulário </a>
-</nav>
+<p-menubar [model]="items" />
+
+<br>
+<br>
 
 
+<p-table
+  [value]="listaContatos"
+  [paginator]="true"
+  [rows]="5"
+  [tableStyle]="{ 'min-width': '50rem' }"
+  [rowsPerPageOptions]="[5, 10, 20]"
+>
+  <ng-template #header>
+    <tr>
+      <th style="width:25%">Id</th>
+      <th style="width:25%">Nome</th>
+      <th style="width:25%">Email</th>
+      <th style="width:25%">Telefone</th>
+      <th style="width:25%">Grupos</th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-contato>
+    <tr>
+      <td>{{ contato.id }}</td>
+      <td>{{ contato.nome }}</td>
+      <td>{{ contato.email }}</td>
+      <td>{{ contato.telefone }}</td>
+      <td>
+        <ng-container *ngFor="let grupo of contato.grupos; let last = last">
+          {{ grupo.nome }}<span *ngIf="!last">, </span>
+        </ng-container>
+      </td>
 
-<div class="form-container">
-  <div class="lista-contatos">
-    <h3>Lista de contatos:</h3>
-    <p *ngIf="listaContatos.length === 0">Nenhum contato cadastrado</p>
-    <ul *ngIf="listaContatos.length > 0">
-      <li *ngFor="let contato of listaContatos">{{ contato.nome }}</li>
-    </ul>
-  </div>
-</div>
+    </tr>
+  </ng-template>
+</p-table>
+

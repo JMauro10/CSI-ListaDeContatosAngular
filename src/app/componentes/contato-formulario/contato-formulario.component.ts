@@ -12,24 +12,23 @@ import {InputMask} from 'primeng/inputmask';
 import {Button} from 'primeng/button';
 import {MenuItem} from 'primeng/api';
 import {Menubar} from 'primeng/menubar';
+import {Contato} from '../../models/contato';
+import {Listbox} from 'primeng/listbox';
 
 
 @Component({
     selector: 'app-contato-formulario',
   imports: [
-    RouterLink, FormsModule, CommonModule, Panel, FloatLabel, InputMask, Button, Menubar
+    RouterLink, FormsModule, CommonModule, Panel, FloatLabel, InputMask, Button, Menubar, Listbox
   ],
     templateUrl: './contato-formulario.component.html',
     styleUrl: './contato-formulario.component.css'
 })
 export class ContatoFormularioComponent {
 
-  id: number = 0 ;
+
   idRemover : number = 0;
-  nome: string = '';
-  email: string = '';
-  telefone: string = '';
-  grupos: [] = [];
+  novoContato: Contato = {id: 0, nome: '', email: '', telefone: '', grupos: []};
 
   listaGrupos: Grupo[] = [];
 
@@ -39,16 +38,20 @@ export class ContatoFormularioComponent {
   }
   items: MenuItem[] = [
     {
-      label: 'Lista grupos',
-      routerLink: '/grupo-lista'
-    },
-    {
       label: 'Novo Contato',
-      routerLink: '/addContato'
+      routerLink: '/contato-formulario'
     },
     {
-      label: 'Sobre',
-      routerLink: '/detalhesContato'
+      label: 'Contatos',
+      routerLink: '/contato-lista'
+    },
+    {
+      label: 'Novo Grupo',
+      routerLink: '/grupo-formulario'
+    },
+    {
+      label: 'Grupos',
+      routerLink: '/grupo-lista'
     }
   ];
 
@@ -57,7 +60,7 @@ export class ContatoFormularioComponent {
       this.contatoService.deletarContatoById(this.idRemover).subscribe({
         next: () => {
           console.log('Contato removido com sucesso!');
-          this.router.navigateByUrl('/lista');
+          this.router.navigateByUrl('/contato-lista');
         },
         error: (erro) => {
           console.error('Erro ao remover contato:', erro);
@@ -67,29 +70,19 @@ export class ContatoFormularioComponent {
 
   }
   adicionar(){
-      if(!this.nome.trim()){
+      if(!this.novoContato.nome.trim()){
         alert('O nome é obrigatório!');
         return;
       }
-      if (!this.email.trim() && !this.telefone.trim()){
+      if (!this.novoContato.email.trim() && !this.novoContato.telefone.trim()){
         alert('Insira ao menos um dos dois: email ou telefone!')
       }
-      console.log('Dados do formulário antes do envio:', {
-        id: this.id,
-        nome: this.nome,
-        email: this.email,
-        telefone: this.telefone
-      });
+      console.log('Dados do formulário antes do envio:', this.novoContato);
 
-      this.contatoService.incluirContato({
-        id: this.id,
-        nome: this.nome,
-        email: this.email,
-        telefone: this.telefone
-      }).subscribe({
+      this.contatoService.incluirContato(this.novoContato).subscribe({
         next: (contato) => {
           console.log('Contato salvo:', contato);
-          this.router.navigateByUrl('/lista');
+          this.router.navigateByUrl('/contato-lista');
         },
         error: (erro) => {
           console.error('Erro ao salvar contato:', erro);

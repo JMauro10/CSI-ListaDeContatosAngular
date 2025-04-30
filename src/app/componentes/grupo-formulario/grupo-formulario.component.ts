@@ -1,11 +1,91 @@
 import { Component } from '@angular/core';
+import {Button} from "primeng/button";
+import {FloatLabel} from "primeng/floatlabel";
+import {FormsModule} from "@angular/forms";
+import {Panel} from "primeng/panel";
+import {Menubar} from 'primeng/menubar';
+import {MenuItem} from 'primeng/api';
+import {GrupoService} from '../../services/grupo.service';
+import {ContatoService} from '../../services/contato.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-grupo-formulario',
-    imports: [],
+  imports: [
+    Button,
+    FloatLabel,
+    FormsModule,
+    Panel,
+    Menubar
+  ],
     templateUrl: './grupo-formulario.component.html',
     styleUrl: './grupo-formulario.component.css'
 })
 export class GrupoFormularioComponent {
 
+  id: number = 0;
+  nome: string = '';
+  idRemover : number = 0;
+
+  items: MenuItem[] = [
+    {
+      label: 'Novo Contato',
+      routerLink: '/contato-formulario'
+    },
+    {
+      label: 'Contatos',
+      routerLink: '/contato-lista'
+    },
+    {
+      label: 'Novo Grupo',
+      routerLink: '/grupo-formulario'
+    },
+    {
+      label: 'Grupos',
+      routerLink: '/grupo-lista'
+    }
+  ];
+
+
+  constructor(private grupoService: GrupoService, private router : Router, private contatoService: ContatoService) {
+  }
+
+  adicionar(){
+    if(!this.nome.trim()){
+      alert('O nome é obrigatório!');
+      return;
+    }
+
+    console.log('Dados do formulário antes do envio:', {
+      id: this.id,
+      nome: this.nome,
+    });
+
+    this.grupoService.incluirGrupo({
+      id: this.id,
+      nome: this.nome,
+    }).subscribe({
+      next: (grupo) => {
+        console.log('Grupo salvo:', grupo);
+        this.router.navigateByUrl('/grupo-lista');
+      },
+      error: (erro) => {
+        console.error('Erro ao salvar grupo:', erro);
+      }
+    });
+
+  }
+
+
+  remover(){
+    this.grupoService.deletarGrupoById(this.idRemover).subscribe({
+      next: () => {
+        console.log('Grupo removido com sucesso!');
+        this.router.navigateByUrl('/grupo-lista');
+      },
+      error: (erro) => {
+        console.error('Erro ao remover grupo:', erro);
+      }
+    });
+  }
 }

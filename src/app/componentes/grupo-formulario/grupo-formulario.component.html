@@ -1,1 +1,26 @@
-<p>grupo-formulario works!</p>
+<p-menubar [model]="items" />
+
+<br>
+<br>
+
+<p-panel header="Adicionar Grupo">
+  <br>
+  <p-floatlabel>
+    <input id="nome" pInputText [(ngModel)]="nome" />
+    <label for="nome">Nome do Grupo</label>
+  </p-floatlabel>
+  <br>
+
+  <p-button (click)="adicionar()" label="Salvar" icon="pi pi-check" iconPos="right" />
+</p-panel>
+
+<br>
+
+<p-panel header="Remover Grupo">
+  <label for="idRemover">ID do Grupo</label>
+  <br>
+  <input type="number" id="idRemover" class="form-control" [(ngModel)]="idRemover" name="idRemover">
+  <br>
+  <br>
+  <p-button (click)="remover()" label="Remover" icon="pi pi-times" iconPos="right" />
+</p-panel>
