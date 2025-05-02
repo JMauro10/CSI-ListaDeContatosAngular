@@ -23,28 +23,21 @@
   </p-floatlabel>
   <br>
 
+  <h4 class="mb-2">Quais grupos deseja adicionar o contato?</h4>
   <p-listbox
     [(ngModel)]="novoContato.grupos"
     [options]="listaGrupos"
     [multiple]="true"
     [checkbox]="true"
+    [showToggleAll]="true"
     optionLabel="nome"
-    class="painel-centralizado">
+    >
   </p-listbox>
-
+  <br>
 
   <p-button (click)="adicionar()" label="Salvar" icon="pi pi-check" iconPos="right" />
-</p-panel>
-<br>
+  </p-panel>
 
-<p-panel header="Remover Contato">
-  <label for="idRemover">ID do Contato</label>
-  <br>
-  <input type="number" id="idRemover" class="form-control" [(ngModel)]="idRemover" name="idRemover">
-  <br>
-  <br>
-  <p-button (click)="remover()" label="Remover" icon="pi pi-times" iconPos="right" />
-</p-panel>
 
 
 

@@ -25,7 +25,8 @@ export class GrupoFormularioComponent {
 
   id: number = 0;
   nome: string = '';
-  idRemover : number = 0;
+
+
 
   items: MenuItem[] = [
     {
@@ -54,38 +55,25 @@ export class GrupoFormularioComponent {
     if(!this.nome.trim()){
       alert('O nome é obrigatório!');
       return;
+
     }
+    console.log('Dados do formulário antes do envio:', {nome: this.nome,});
 
-    console.log('Dados do formulário antes do envio:', {
-      id: this.id,
-      nome: this.nome,
-    });
+    this.grupoService.incluirGrupo({ nome: this.nome}).subscribe({
 
-    this.grupoService.incluirGrupo({
-      id: this.id,
-      nome: this.nome,
-    }).subscribe({
       next: (grupo) => {
-        console.log('Grupo salvo:', grupo);
+        console.log('Grupo criado com sucesso!');
         this.router.navigateByUrl('/grupo-lista');
       },
       error: (erro) => {
-        console.error('Erro ao salvar grupo:', erro);
+        if (erro.status === 400 || erro.status === 409) {
+          alert(erro.error?.message || 'Já existe um grupo com esse nome!');
+        } else {
+          alert('Erro inesperado ao criar grupo.');
+        }
       }
     });
 
   }
 
-
-  remover(){
-    this.grupoService.deletarGrupoById(this.idRemover).subscribe({
-      next: () => {
-        console.log('Grupo removido com sucesso!');
-        this.router.navigateByUrl('/grupo-lista');
-      },
-      error: (erro) => {
-        console.error('Erro ao remover grupo:', erro);
-      }
-    });
-  }
 }

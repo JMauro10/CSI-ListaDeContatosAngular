@@ -32,4 +32,9 @@ export class ContatoService {
   atualizarContato(contato: Contato): Observable<Contato>{
     return this.http.put<Contato>(this.url + '/contato', contato);
   }
+
+  atualizarFavorito(contatoId: number, favorito: boolean): Observable<Contato> {
+    return this.http.patch<Contato>(this.url + `/contato/${contatoId}/favorito`, { favorito });
+  }
+
 }

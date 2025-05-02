@@ -16,6 +16,8 @@ import {Contato} from '../../models/contato';
 import {Listbox} from 'primeng/listbox';
 
 
+
+
 @Component({
     selector: 'app-contato-formulario',
   imports: [
@@ -26,16 +28,6 @@ import {Listbox} from 'primeng/listbox';
 })
 export class ContatoFormularioComponent {
 
-
-  idRemover : number = 0;
-  novoContato: Contato = {id: 0, nome: '', email: '', telefone: '', grupos: []};
-
-  listaGrupos: Grupo[] = [];
-
-
-  constructor(private contatoService : ContatoService, private router : Router, private grupoService : GrupoService) {
-    this.grupoService.listarGrupos().subscribe(grupos => this.listaGrupos = grupos);
-  }
   items: MenuItem[] = [
     {
       label: 'Novo Contato',
@@ -55,20 +47,16 @@ export class ContatoFormularioComponent {
     }
   ];
 
-  remover(){
-
-      this.contatoService.deletarContatoById(this.idRemover).subscribe({
-        next: () => {
-          console.log('Contato removido com sucesso!');
-          this.router.navigateByUrl('/contato-lista');
-        },
-        error: (erro) => {
-          console.error('Erro ao remover contato:', erro);
-        }
-      });
 
 
+  novoContato: Contato = {id: 0, nome: '', email: '', telefone: '', grupos: []};
+  listaGrupos: Grupo[] = [];
+
+
+  constructor(private contatoService : ContatoService, private router : Router, private grupoService : GrupoService) {
+    this.grupoService.listarGrupos().subscribe(grupos => this.listaGrupos = grupos);
   }
+
   adicionar(){
       if(!this.novoContato.nome.trim()){
         alert('O nome é obrigatório!');
@@ -81,13 +69,18 @@ export class ContatoFormularioComponent {
 
       this.contatoService.incluirContato(this.novoContato).subscribe({
         next: (contato) => {
-          console.log('Contato salvo:', contato);
+          console.log('Contato criado com sucesso!');
           this.router.navigateByUrl('/contato-lista');
         },
         error: (erro) => {
-          console.error('Erro ao salvar contato:', erro);
+          if (erro.status === 400 || erro.status === 409) {
+            alert(erro.error?.message || 'Já existe um contato com esse nome!');
+          } else {
+            alert('Erro inesperado ao criar contato.');
+          }
         }
       });
 
   }
+
 }
