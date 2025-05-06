@@ -44,6 +44,14 @@ export class GrupoFormularioComponent {
     {
       label: 'Grupos',
       routerLink: '/grupo-lista'
+    },
+    {
+      label: 'Novo Compromisso',
+      routerLink: '/compromisso-formulario'
+    },
+    {
+      label: 'Compromissos',
+      routerLink: '/compromisso-lista'
     }
   ];
 

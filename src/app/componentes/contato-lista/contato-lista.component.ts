@@ -53,6 +53,14 @@ export class ContatoDetalhesComponent {
     {
       label: 'Grupos',
       routerLink: '/grupo-lista'
+    },
+    {
+      label: 'Novo Compromisso',
+      routerLink: '/compromisso-formulario'
+    },
+    {
+      label: 'Compromissos',
+      routerLink: '/compromisso-lista'
     }
   ];
 
@@ -176,16 +184,6 @@ export class ContatoDetalhesComponent {
         }
       });
     }
-
-
-  /*
-      get contatosFiltrados(): Contato[] {
-        return this.listaContatos
-          .filter(contato => !this.somenteFavoritos || contato.favorito)
-          .filter(contato => !this.grupoSelecionado || contato.grupos.some(g => g.id === this.grupoSelecionado));
-      }
-     */
-
 
   get contatosFiltrados(): Contato[] {
     return this.listaContatos

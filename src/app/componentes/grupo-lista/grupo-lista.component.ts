@@ -5,7 +5,6 @@ import {ContatoService} from '../../services/contato.service';
 import {GrupoService} from '../../services/grupo.service';
 import {Router} from '@angular/router';
 import {Grupo} from '../../models/grupo';
-import {NgForOf, NgIf} from '@angular/common';
 import {TableModule} from 'primeng/table';
 import {Button, ButtonDirective} from 'primeng/button';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -15,13 +14,10 @@ import {Dialog} from 'primeng/dialog';
     selector: 'app-grupo-lista',
   imports: [
     Menubar,
-    NgForOf,
-    NgIf,
     TableModule,
     ButtonDirective,
     Dialog,
-    ReactiveFormsModule,
-    Button
+    ReactiveFormsModule
   ],
     templateUrl: './grupo-lista.component.html',
     styleUrl: './grupo-lista.component.css'
@@ -44,6 +40,14 @@ export class GrupoListaComponent {
     {
       label: 'Grupos',
       routerLink: '/grupo-lista'
+    },
+    {
+      label: 'Novo Compromisso',
+      routerLink: '/compromisso-formulario'
+    },
+    {
+      label: 'Compromissos',
+      routerLink: '/compromisso-lista'
     }
   ];
 

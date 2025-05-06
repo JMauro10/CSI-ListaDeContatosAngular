@@ -6,8 +6,6 @@
 
 <h4 class="mb-2">Filtros</h4>
 <div class="filtros-container">
-
-  <!-- Filtro Favoritos como botão toggle -->
   <button
     pButton
     type="button"
@@ -19,7 +17,6 @@
     pTooltip="{{ somenteFavoritos ? 'Remover filtro de favoritos' : 'Listar apenas favoritos' }}">
   </button>
 
-  <!-- Filtro de Grupos -->
   <p-dropdown
     [options]="listaGrupos"
     [(ngModel)]="grupoSelecionado"
@@ -31,7 +28,6 @@
     icon="pi pi-users"
   ></p-dropdown>
 
-  <!-- Campo de busca -->
   <span class="p-input-icon-left">
     <i class="pi pi-search" style="margin-right: 8px;" ></i>
     <input
@@ -98,9 +94,6 @@
     </tr>
   </ng-template>
 </p-table>
-
-
-
 
 <p-dialog
   header="Editar Contato"

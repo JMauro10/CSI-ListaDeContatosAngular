@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {RouterLink} from '@angular/router';
 import {ContatoService} from '../../services/contato.service';
 import {Router} from '@angular/router';
 import {Grupo} from '../../models/grupo';
 import {GrupoService} from '../../services/grupo.service';
 import {Panel} from 'primeng/panel';
 import {FloatLabel} from 'primeng/floatlabel';
-import {InputMask} from 'primeng/inputmask';
 import {Button} from 'primeng/button';
 import {MenuItem} from 'primeng/api';
 import {Menubar} from 'primeng/menubar';
@@ -21,7 +19,7 @@ import {Listbox} from 'primeng/listbox';
 @Component({
     selector: 'app-contato-formulario',
   imports: [
-    RouterLink, FormsModule, CommonModule, Panel, FloatLabel, InputMask, Button, Menubar, Listbox
+    FormsModule, CommonModule, Panel, FloatLabel, Button, Menubar, Listbox
   ],
     templateUrl: './contato-formulario.component.html',
     styleUrl: './contato-formulario.component.css'
@@ -44,6 +42,14 @@ export class ContatoFormularioComponent {
     {
       label: 'Grupos',
       routerLink: '/grupo-lista'
+    },
+    {
+      label: 'Novo Compromisso',
+      routerLink: '/compromisso-formulario'
+    },
+    {
+      label: 'Compromissos',
+      routerLink: '/compromisso-lista'
     }
   ];
 

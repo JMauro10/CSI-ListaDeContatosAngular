@@ -1,0 +1,40 @@
+<p-menubar [model]="items" />
+
+<br>
+<br>
+
+<p-panel header="Adicionar Compromisso">
+  <br>
+  <p-floatlabel>
+    <input id="titulo" pInputText [(ngModel)]="novoCompromisso.titulo" />
+    <label for="titulo">Titulo</label>
+  </p-floatlabel>
+  <br>
+  <br>
+  <p-floatlabel>
+    <textarea pTextarea id="Descricao" [(ngModel)]="novoCompromisso.descricao" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
+    <label for="Descricao">Descrição</label>
+  </p-floatlabel>
+  <br>
+  <br>
+  <p-datepicker inputId="dataHora" [(ngModel)]="novoCompromisso.dataHora" [showTime]="true" hourFormat="24" />
+  <br>
+  <br>
+  <p-floatlabel>
+    <input id="local" pInputText [(ngModel)]="novoCompromisso.local" />
+    <label for="local">Local</label>
+  </p-floatlabel>
+  <br>
+
+
+  <h4 class="mb-2">Qual contato deseja atribuir esse compromisso?</h4>
+  <p-listbox
+    [(ngModel)]="novoCompromisso.contato"
+    [options]="listaContatos"
+    optionLabel="nome"
+    placeholder="Selecione um contato">
+  </p-listbox>
+  <br>
+
+  <p-button (click)="adicionar()" label="Salvar" icon="pi pi-check" iconPos="right" />
+</p-panel>
